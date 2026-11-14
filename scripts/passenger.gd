@@ -6,13 +6,17 @@ var speed = 30
 var angular_speed = PI/4
 var action = 0
 
-var platform
+var platform: Variant
 var plat_shape: RectangleShape2D
 var plat_size: Vector2
 const plat_padding = 16
 
-func start(platform_ref):	
+var train: Variant
+
+func start(platform_ref, train_ref):
 	platform = platform_ref
+	train = train_ref
+	
 	active = true
 	visible = true
 	rotation = randf_range(0,TAU)
@@ -45,6 +49,13 @@ func _process(delta):
 		rotation += angular_speed * delta
 
 	var local_position = platform.to_local(global_position)
-	if abs(local_position.x) > plat_size.x/2 - plat_padding or abs(local_position.y) > plat_size.y / 2 - plat_padding:
-		position -= Vector2.UP.rotated(rotation) * speed * delta
-		action = 0
+	local_position.x = clamp(
+		local_position.x,
+		-plat_size.x / 2 + plat_padding,
+		plat_size.x / 2 - plat_padding
+	)
+	local_position.y = clamp(
+		local_position.y,
+		-plat_size.y / 2 + plat_padding,
+		plat_size.y / 2 - plat_padding
+	)

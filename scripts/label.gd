@@ -1,5 +1,5 @@
 extends Label
-@onready var passengers = get_node("/root/main/Node2D/PassengersContainer")
+@onready var passengers = $"../../Node2D/PassengersContainer"
 
 func _ready():
 	text = 'Passengers: 0'

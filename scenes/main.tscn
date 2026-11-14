@@ -38,10 +38,11 @@ texture = ExtResource("1_sugp2")
 [node name="Hitbox" type="CollisionShape2D" parent="Node2D/PlatformArea" unique_id=1935806620]
 shape = SubResource("RectangleShape2D_d3t8h")
 
+[node name="Path2D" parent="Node2D/PlatformArea" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
+position = Vector2(-576, -324)
+
 [node name="PassengersContainer" type="Node2D" parent="Node2D" unique_id=2008254852]
 script = ExtResource("2_jyhfs")
-
-[node name="Path2D" parent="Node2D" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
 
 [node name="Centered" type="Control" parent="." unique_id=1308823877]
 layout_mode = 3
