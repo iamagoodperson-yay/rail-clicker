@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://d18nkw05phsou"]
+
+[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://cl51ft2j6ml4b" path="res://button.gd" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://label.gd" id="3_lquwl"]
+
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_xlch1"]
+
+[sub_resource type="Theme" id="Theme_4hp5e"]
+
+[sub_resource type="Theme" id="Theme_xlch1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.21487993, 0.79, 0.12640002, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="main" type="Node" unique_id=417744697]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1458842150]
+
+[node name="Platform" type="Sprite2D" parent="Node2D" unique_id=592121929]
+position = Vector2(576, 324)
+scale = Vector2(2.6914063, 1.3632814)
+texture = ExtResource("1_h2yge")
+
+[node name="Passenger" type="Sprite2D" parent="Node2D" unique_id=465590899]
+position = Vector2(119.99999, -39.999996)
+scale = Vector2(0.4, 0.4)
+texture = SubResource("DrawableTexture2D_xlch1")
+
+[node name="Centered" type="Control" parent="." unique_id=1308823877]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 576.0
+offset_bottom = 324.0
+theme = SubResource("Theme_4hp5e")
+
+[node name="Label" type="Label" parent="Centered" unique_id=1083454301]
+layout_mode = 0
+offset_left = -63.0
+offset_top = -322.0
+offset_right = 63.0
+offset_bottom = -298.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Passengers: XXX"
+script = ExtResource("3_lquwl")
+
+[node name="Button" type="Button" parent="Centered" unique_id=1805030628]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 475.0
+offset_top = 246.0
+offset_right = 517.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xlch1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
+text = "+"
+script = ExtResource("2_1bvp3")
+
+[connection signal="pressed" from="Centered/Button" to="Centered/Label" method="_on_button_pressed"]

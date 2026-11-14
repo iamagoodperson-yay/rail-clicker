@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://djymkwl0af70t"]
+
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_xlch1"]
+
+[node name="Passenger" type="Sprite2D" unique_id=79583482]
+scale = Vector2(0.4, 0.4)
+texture = SubResource("DrawableTexture2D_xlch1")
