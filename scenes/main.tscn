@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/label.gd" id="3_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://c3w178yycuord" path="res://scenes/passenger.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_tbgi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
 size = Vector2(512, 256)
@@ -28,20 +28,20 @@ corner_detail = 5
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1458842150]
 
-[node name="Platform" type="Area2D" parent="Node2D" unique_id=833660999]
+[node name="PlatformArea" type="Area2D" parent="Node2D" unique_id=833660999]
 position = Vector2(576, 324)
 
-[node name="PlatformSprite" type="Sprite2D" parent="Node2D/Platform" unique_id=592121929]
+[node name="Platform" type="Sprite2D" parent="Node2D/PlatformArea" unique_id=592121929]
 scale = Vector2(4, 2)
 texture = ExtResource("1_sugp2")
 
-[node name="Hitbox" type="CollisionShape2D" parent="Node2D/Platform" unique_id=1935806620]
+[node name="Hitbox" type="CollisionShape2D" parent="Node2D/PlatformArea" unique_id=1935806620]
 shape = SubResource("RectangleShape2D_d3t8h")
 
 [node name="PassengersContainer" type="Node2D" parent="Node2D" unique_id=2008254852]
 script = ExtResource("2_jyhfs")
 
-[node name="Passenger" parent="Node2D" unique_id=1345571095 instance=ExtResource("3_tbgi4")]
+[node name="Path2D" parent="Node2D" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
 
 [node name="Centered" type="Control" parent="." unique_id=1308823877]
 layout_mode = 3

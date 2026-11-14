@@ -1,7 +1,7 @@
 extends Node2D
 
 var object = preload("res://scenes/passenger.tscn")
-@onready var platform = $"../Platform/Hitbox"
+@onready var platform = $"../PlatformArea/Hitbox"
 
 func _on_button_pressed() -> void:
 	var passenger = object.instantiate()

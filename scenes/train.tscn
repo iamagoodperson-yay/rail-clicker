@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c6wjjnoasaug1"]
+
+[ext_resource type="Script" uid="uid://dnykljyee1lxx" path="res://scripts/train_path.gd" id="1_68jl8"]
+[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="2_d43s7"]
+
+[sub_resource type="Curve2D" id="Curve2D_sugp2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, 298, 0, 0, 0, 0, 85, 296, 0, 0, 0, 0, 313, 164, 0, 0, 0, 0, 834, 163, 0, 0, 0, 0, 995, 298, 0, 0, 0, 0, 1372, 298)
+}
+point_count = 6
+
+[node name="Path2D" type="Path2D" unique_id=1865679941]
+curve = SubResource("Curve2D_sugp2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1926359726]
+position = Vector2(-313, 298)
+rotation = -0.0050250837
+script = ExtResource("1_68jl8")
+
+[node name="Train" type="Sprite2D" parent="PathFollow2D" unique_id=1354929336]
+scale = Vector2(2, 1)
+texture = ExtResource("2_d43s7")
