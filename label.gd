@@ -1,10 +1,10 @@
 extends Label
 
-var passenger_count = 0
+var passengers = 0
 
 func _ready():
-	text = 'Passengers:' + str(passenger_count)
+	text = 'Passengers: ' + str(passengers)
 
 func _on_button_pressed() -> void:
-	passenger_count += 1
-	text = 'Passengers: ' + str(passenger_count)
+	passengers += 1
+	text = 'Passengers: ' + str(passengers)
