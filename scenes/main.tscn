@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://d18nkw05phsou"]
 
-[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://bfd46ocqysain" path="res://spawn.gd" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://label.gd" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/label.gd" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://c3w178yycuord" path="res://scenes/passenger.tscn" id="3_tbgi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(127.814224, 126.89971)
+size = Vector2(512, 256)
 
 [sub_resource type="Theme" id="Theme_4hp5e"]
 
@@ -29,16 +30,18 @@ corner_detail = 5
 
 [node name="Platform" type="Area2D" parent="Node2D" unique_id=833660999]
 position = Vector2(576, 324)
-scale = Vector2(4, 2)
 
 [node name="PlatformSprite" type="Sprite2D" parent="Node2D/Platform" unique_id=592121929]
-texture = ExtResource("1_h2yge")
+scale = Vector2(4, 2)
+texture = ExtResource("1_sugp2")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Node2D/Platform" unique_id=1935806620]
 shape = SubResource("RectangleShape2D_d3t8h")
 
-[node name="Passengers" type="Node2D" parent="Node2D" unique_id=2008254852]
-script = ExtResource("2_h2yge")
+[node name="PassengersContainer" type="Node2D" parent="Node2D" unique_id=2008254852]
+script = ExtResource("2_jyhfs")
+
+[node name="Passenger" parent="Node2D" unique_id=1345571095 instance=ExtResource("3_tbgi4")]
 
 [node name="Centered" type="Control" parent="." unique_id=1308823877]
 layout_mode = 3
@@ -57,7 +60,7 @@ offset_right = 63.0
 offset_bottom = -298.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 text = "Passengers: XXX"
-script = ExtResource("3_lquwl")
+script = ExtResource("3_jyhfs")
 
 [node name="Button" type="Button" parent="Centered" unique_id=1805030628]
 layout_mode = 1
@@ -77,5 +80,5 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
 text = "+"
 
-[connection signal="pressed" from="Centered/Button" to="Node2D/Passengers" method="_on_button_pressed"]
+[connection signal="pressed" from="Centered/Button" to="Node2D/PassengersContainer" method="_on_button_pressed"]
 [connection signal="pressed" from="Centered/Button" to="Centered/Label" method="_on_button_pressed"]
