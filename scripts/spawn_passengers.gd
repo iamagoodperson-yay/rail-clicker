@@ -1,6 +1,5 @@
 extends Node2D
 
-var boarding = false
 
 var pass_scene = preload("res://scenes/passenger.tscn")
 @onready var platform = $"../PlatformArea/Hitbox"
@@ -16,6 +15,5 @@ func train_arrived():
 		passenger.board_train()
 		
 func _process(delta: float) -> void:
-	if Event.train_arrived and not boarding:
+	if Event.train_arrived:
 		train_arrived()
-		boarding = true

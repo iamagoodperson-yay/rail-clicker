@@ -15,6 +15,9 @@ const plat_padding = 16
 var train: Node2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
+func _ready():
+	add_to_group('passengers')
+
 func start(platform_ref, train_ref):
 	platform = platform_ref
 	train = train_ref
