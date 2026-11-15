@@ -3,8 +3,19 @@
 [ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_euwux"]
 [ext_resource type="Script" uid="uid://wbv2qeyev8em" path="res://scripts/passenger.gd" id="2_euwux"]
 
-[node name="Passenger" type="Sprite2D" unique_id=1345571095]
-visible = false
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(127.50003, 127.500046)
+
+[node name="Passenger" type="CharacterBody2D" unique_id=182461536]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_euwux")
 script = ExtResource("2_euwux")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=40135165]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=491004969]
+path_desired_distance = 4.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2071598969]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("1_euwux")

@@ -36,8 +36,10 @@ func linear_progress(delta) -> void:
 
 
 func wait_at_midpoint():
+	Event.train_arrived = true
 	await get_tree().create_timer(10.0).timeout
 	state = "a"
+	Event.train_arrived = false
 
 func spawn_wait():
 	await get_tree().create_timer(randf_range(10.0, 20.0)).timeout

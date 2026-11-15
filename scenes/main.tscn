@@ -5,6 +5,11 @@
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/label.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_tbgi4"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
+vertices = PackedVector2Array(822.96875, 445, 329.03125, 445, 329.96875, 106, 822.03125, 106)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(319, 455, 833, 455, 832, 96, 320, 96)])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
 size = Vector2(512, 256)
 
@@ -26,23 +31,23 @@ corner_detail = 5
 
 [node name="main" type="Node" unique_id=417744697]
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1458842150]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=706189795]
+navigation_polygon = SubResource("NavigationPolygon_jyhfs")
 
-[node name="PlatformArea" type="Area2D" parent="Node2D" unique_id=833660999]
+[node name="PlatformArea" type="Area2D" parent="NavigationRegion2D" unique_id=833660999]
 position = Vector2(576, 324)
 
-[node name="Platform" type="Sprite2D" parent="Node2D/PlatformArea" unique_id=592121929]
+[node name="Platform" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=592121929]
 scale = Vector2(4, 2)
 texture = ExtResource("1_sugp2")
 
-[node name="Hitbox" type="CollisionShape2D" parent="Node2D/PlatformArea" unique_id=1935806620]
+[node name="Hitbox" type="CollisionShape2D" parent="NavigationRegion2D/PlatformArea" unique_id=1935806620]
 shape = SubResource("RectangleShape2D_d3t8h")
 
-[node name="Path2D" parent="Node2D/PlatformArea" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
-position = Vector2(-576, -324)
-
-[node name="PassengersContainer" type="Node2D" parent="Node2D" unique_id=2008254852]
+[node name="PassengersContainer" type="Node2D" parent="NavigationRegion2D" unique_id=2008254852]
 script = ExtResource("2_jyhfs")
+
+[node name="Path2D" parent="NavigationRegion2D" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
 
 [node name="Centered" type="Control" parent="." unique_id=1308823877]
 layout_mode = 3
@@ -81,5 +86,5 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
 text = "+"
 
-[connection signal="pressed" from="Centered/Button" to="Node2D/PassengersContainer" method="_on_button_pressed"]
-[connection signal="pressed" from="Centered/Button" to="Centered/Label" method="_on_button_pressed"]
+[connection signal="child_order_changed" from="NavigationRegion2D/PassengersContainer" to="Centered/Label" method="_on_passengers_container_child_order_changed"]
+[connection signal="pressed" from="Centered/Button" to="NavigationRegion2D/PassengersContainer" method="_on_button_pressed"]
