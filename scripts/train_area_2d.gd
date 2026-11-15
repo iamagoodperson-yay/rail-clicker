@@ -4,5 +4,5 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body):
-	if body.is_in_group("passengers") and Event.train_arrived:
+	if body.is_in_group("passengers"):
 		body.boarded()

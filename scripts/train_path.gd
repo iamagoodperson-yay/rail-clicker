@@ -30,6 +30,7 @@ func linear_progress(delta) -> void:
 	progress_ratio += speed * delta
 
 	if progress_ratio >= 1.0:
+		await get_tree().create_timer(30.0).timeout
 		progress_ratio = 0.0
 		speed = max_speed
 		state = "c"
@@ -37,9 +38,10 @@ func linear_progress(delta) -> void:
 
 func wait_at_midpoint():
 	Event.train_arrived = true
-	await get_tree().create_timer(10.0).timeout
+	var timer = get_tree().create_timer(20.0)
+	while get_tree().get_node_count_in_group("passengers") > 0:
+		if timer.time_left <= 0:
+			break
+		await get_tree().process_frame
 	state = "a"
 	Event.train_arrived = false
-
-func spawn_wait():
-	await get_tree().create_timer(randf_range(10.0, 20.0)).timeout

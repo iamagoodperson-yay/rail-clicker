@@ -1,11 +1,11 @@
 extends Node2D
 
-
 var pass_scene = preload("res://scenes/passenger.tscn")
 @onready var platform = $"../PlatformArea/Hitbox"
 @onready var train = $"../Path2D/PathFollow2D/Train"
 
 func _on_button_pressed() -> void:
+	Event.passenger_count += 1
 	var passenger = pass_scene.instantiate()
 	add_child(passenger)
 	passenger.start(platform, train)

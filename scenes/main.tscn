@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_tbgi4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
-vertices = PackedVector2Array(719, 195.10156, 823, 194.09375, 823, 445, 329, 445, 329, 196, 439, 196, 439, 108, 719, 108)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5), PackedInt32Array(0, 3, 5), PackedInt32Array(0, 5, 6, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(319, 455, 833, 455, 833, 184, 729, 185, 729, 98, 429, 98, 429, 186, 319, 186)])
+vertices = PackedVector2Array(742.3906, 199, 823.96094, 199, 823.03906, 445, 329, 445, 716.3672, 156.42188, 405.3203, 200, 442.40625, 160.59375, 329, 200, 454.5703, 82, 706.2578, 82)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5, 6), PackedInt32Array(3, 7, 5), PackedInt32Array(4, 6, 8, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(319, 455, 833, 455, 834, 189, 748, 189, 726, 153, 715, 72, 446, 72, 433, 156, 401, 190, 319, 190)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
 size = Vector2(512, 256)

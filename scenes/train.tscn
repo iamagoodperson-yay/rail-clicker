@@ -11,7 +11,7 @@ _data = {
 point_count = 6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(256.00363, 87.84236)
+size = Vector2(256.00363, 77.99609)
 
 [node name="Path2D" type="Path2D" unique_id=1865679941]
 curve = SubResource("Curve2D_sugp2")
@@ -29,5 +29,4 @@ texture = ExtResource("2_d43s7")
 script = ExtResource("3_6b7q7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/TrainArea2D" unique_id=1480783289]
-position = Vector2(0.0033444627, -0.9999944)
 shape = SubResource("RectangleShape2D_d3t8h")

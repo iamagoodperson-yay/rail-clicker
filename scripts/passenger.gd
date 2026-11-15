@@ -70,6 +70,7 @@ func boarded():
 	active = false
 	boarding = false
 	velocity = Vector2.ZERO
+	Event.passenger_count -= 1
 	queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -78,7 +79,9 @@ func _physics_process(delta: float) -> void:
 	
 	if boarding:
 		var next_pos = nav_agent.get_next_path_position()
-		velocity = global_position.direction_to(next_pos) * speed
+		var direction = global_position.direction_to(next_pos)
+		velocity = direction * speed
+		rotation = move_toward(rotation, direction.rotated(PI/2).angle(), delta)
 		
 	else: 
 		match action:
