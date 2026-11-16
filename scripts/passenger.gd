@@ -43,7 +43,7 @@ func choose_action():
 		await get_tree().create_timer(randf_range(2.5, 10.0)).timeout
 		
 		action = randi_range(1,2)
-		await get_tree().create_timer(randf_range(0.5, 1.5)).timeout
+		await get_tree().create_timer(randf_range(1.5, 5)).timeout
 		
 func board_train():
 	if not active or boarding:
@@ -71,6 +71,7 @@ func boarded():
 	boarding = false
 	velocity = Vector2.ZERO
 	Event.passenger_count -= 1
+	Event.train_passengers += 1
 	queue_free()
 
 func _physics_process(delta: float) -> void:

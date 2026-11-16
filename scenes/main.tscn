@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/label.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://i6lh1psvufw4" path="res://scripts/capacity_label.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://b0eh2pf007vs5" path="res://scripts/wait_label.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://ei1rg1yu5721" path="res://scripts/fare_label.gd" id="7_tipki"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
 vertices = PackedVector2Array(742.3906, 199, 823.96094, 199, 823.03906, 445, 329, 445, 716.3672, 156.42188, 405.3203, 200, 442.40625, 160.59375, 329, 200, 454.5703, 82, 706.2578, 82)
@@ -65,7 +68,9 @@ offset_top = -322.0
 offset_right = 63.0
 offset_bottom = -298.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-text = "Passengers: XXX"
+text = "Passengers: XXX
+Money: XXX"
+horizontal_alignment = 1
 script = ExtResource("3_jyhfs")
 
 [node name="Button" type="Button" parent="Centered" unique_id=1805030628]
@@ -75,10 +80,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 475.0
-offset_top = 242.0
-offset_right = 525.0
-offset_bottom = 292.0
+offset_left = 485.0
+offset_top = 241.0
+offset_right = 535.0
+offset_bottom = 291.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xlch1")
@@ -86,5 +91,115 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
 text = "+"
 
-[connection signal="child_order_changed" from="NavigationRegion2D/PassengersContainer" to="Centered/Label" method="_on_passengers_container_child_order_changed"]
+[node name="FoldableContainer" type="FoldableContainer" parent="Centered" unique_id=108985270]
+layout_mode = 1
+offset_left = -529.0
+offset_top = -17.0
+offset_right = -279.0
+offset_bottom = 292.0
+pivot_offset_ratio = Vector2(0, 1)
+accessibility_region = true
+folded = true
+title = "📈 Upgrades"
+title_alignment = 1
+title_position = 1
+
+[node name="VFlowContainer" type="VFlowContainer" parent="Centered/FoldableContainer" unique_id=1067438242]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="CapacityLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=597102518]
+layout_mode = 2
+script = ExtResource("5_tbgi4")
+
+[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel" unique_id=1761397371]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/TopContainer" unique_id=1834715240]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Train Capacity: xxx"
+
+[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel" unique_id=1821665455]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer" unique_id=1470855143]
+layout_mode = 2
+text = "Level: X
+Cost: XX"
+
+[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer" unique_id=224414177]
+layout_mode = 2
+text = "Upgrade
++X capacity"
+
+[node name="WaitLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=1309673547]
+layout_mode = 2
+script = ExtResource("6_o6xl0")
+
+[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel" unique_id=126084046]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/TopContainer" unique_id=60532533]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Time between trains: xxx"
+
+[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel" unique_id=237285332]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer" unique_id=118995720]
+layout_mode = 2
+text = "Level: X
+Cost: XX"
+
+[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer" unique_id=1427881486]
+layout_mode = 2
+text = "Upgrade
++X capacity"
+
+[node name="FareLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=1852059416]
+layout_mode = 2
+script = ExtResource("7_tipki")
+
+[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/FareLabel" unique_id=940766809]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/TopContainer" unique_id=1578248771]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Fare: xxx"
+
+[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/FareLabel" unique_id=1159831178]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer" unique_id=1015303222]
+layout_mode = 2
+text = "Level: X
+Cost: XX"
+
+[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer" unique_id=2087871413]
+layout_mode = 2
+text = "Upgrade
++X capacity"
+
+[node name="ErrorLabel" type="Label" parent="Centered" unique_id=1161960994]
+visible = false
+layout_mode = 0
+offset_left = -89.0
+offset_top = 265.0
+offset_right = 147.0
+offset_bottom = 288.0
+theme_override_colors/font_color = Color(1, 0.100000024, 0.100000024, 1)
+text = "Error:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Centered/Button" to="NavigationRegion2D/PassengersContainer" method="_on_button_pressed"]
+[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/CapacityLabel" method="_on_button_pressed"]
+[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/WaitLabel" method="_on_button_pressed"]
+[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/FareLabel" method="_on_button_pressed"]
