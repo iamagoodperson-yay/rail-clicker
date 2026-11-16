@@ -8,9 +8,9 @@ extends HFlowContainer
 var obj = Event.fare
 
 func _process(delta):
-	top_label.text = "Fare: %s" % obj.amt
+	top_label.text = "Fare per passenger: %s" % obj.amt
 	btm_label.text = "Level: %s\nCost: %s" % [obj.level, obj.cost]
-	button.text = "Upgrade\n+%s capacity" % obj.amt_inc
+	button.text = "Upgrade\n+%s Fare" % obj.amt_inc
 
 func _on_button_pressed() -> void:
 	if Event.money < obj.cost:

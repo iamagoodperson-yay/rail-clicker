@@ -48,7 +48,7 @@ func linear_progress(delta) -> void:
 func wait_at_midpoint():
 	Event.train_arrived = true
 	label.visible = true
-	var timer = get_tree().create_timer(20.0)
+	var timer = get_tree().create_timer(15.0)
 	while timer.time_left > 0:
 		if Event.train_passengers >= Event.train_capacity.amt:
 			break
@@ -58,7 +58,8 @@ func wait_at_midpoint():
 	label.visible = false
 
 func wait_at_end():
-	await get_tree().create_timer(10.0).timeout
+	Event.money = Event.train_passengers * Event.fare.amt
+	await get_tree().create_timer(Event.train_wait.amt).timeout
 	Event.train_passengers = 0
 	progress_ratio = 0.0
 	speed = max_speed

@@ -25,5 +25,5 @@ func _on_button_pressed() -> void:
 
 func error():
 	error_label.visible = true
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	error_label.visible = false

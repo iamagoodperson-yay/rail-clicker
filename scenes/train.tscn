@@ -11,7 +11,7 @@ _data = {
 point_count = 6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(256.00363, 77.99609)
+size = Vector2(238.00125, 77.99609)
 
 [node name="Path2D" type="Path2D" unique_id=1865679941]
 curve = SubResource("Curve2D_sugp2")

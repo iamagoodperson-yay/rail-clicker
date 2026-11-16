@@ -81,7 +81,7 @@ offset_bottom = 153.0
 text = "Waiting passengers: XX"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="Centered" unique_id=1805030628]
+[node name="AddButton" type="Button" parent="Centered" unique_id=1805030628]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -89,9 +89,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 485.0
-offset_top = 241.0
+offset_top = 207.0
 offset_right = 535.0
-offset_bottom = 291.0
+offset_bottom = 257.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xlch1")
@@ -167,7 +167,7 @@ Cost: XX"
 [node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer" unique_id=1427881486]
 layout_mode = 2
 text = "Upgrade
-+X capacity"
+-X Wait time"
 
 [node name="FareLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=1852059416]
 layout_mode = 2
@@ -179,7 +179,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/TopContainer" unique_id=1578248771]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Fare: xxx"
+text = "Fare per passenger: xxx"
 
 [node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/FareLabel" unique_id=1159831178]
 layout_mode = 2
@@ -193,7 +193,7 @@ Cost: XX"
 [node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer" unique_id=2087871413]
 layout_mode = 2
 text = "Upgrade
-+X capacity"
++X Fare"
 
 [node name="ErrorLabel" type="Label" parent="Centered" unique_id=1161960994]
 visible = false
@@ -207,7 +207,17 @@ text = "Error:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Centered/Button" to="NavigationRegion2D/PassengersContainer" method="_on_button_pressed"]
+[node name="RestButton" type="Button" parent="Centered" unique_id=89585869]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 259.0
+offset_right = 535.0
+offset_bottom = 291.0
+text = "❌ Reset All Passengers
+"
+
+[connection signal="pressed" from="Centered/AddButton" to="NavigationRegion2D/PassengersContainer" method="_on_add_button_pressed"]
 [connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/CapacityLabel" method="_on_button_pressed"]
 [connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/WaitLabel" method="_on_button_pressed"]
 [connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/FareLabel" method="_on_button_pressed"]
+[connection signal="pressed" from="Centered/RestButton" to="NavigationRegion2D/PassengersContainer" method="_on_rest_button_pressed"]
