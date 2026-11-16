@@ -17,8 +17,9 @@ size = Vector2(256.00363, 77.99609)
 curve = SubResource("Curve2D_sugp2")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1926359726]
-position = Vector2(-222, 280)
-rotation = -0.003344469
+position = Vector2(578.8633, 142.50066)
+rotation = 0.0017889069
+progress = 839.736
 loop = false
 script = ExtResource("1_68jl8")
 
@@ -31,3 +32,12 @@ script = ExtResource("3_6b7q7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/TrainArea2D" unique_id=1480783289]
 shape = SubResource("RectangleShape2D_d3t8h")
+
+[node name="Label" type="Label" parent="." unique_id=276590280]
+offset_left = 558.0
+offset_top = 52.0
+offset_right = 598.0
+offset_bottom = 75.0
+text = "X/X"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,5 +1,7 @@
 extends PathFollow2D
 
+@onready var label = $'../Label'
+
 const max_speed = 0.2
 const acceleration = 0.05
 var speed = max_speed
@@ -8,7 +10,12 @@ const midpoint = 0.5
 var state = "c"
 var accel_dist = (max_speed * max_speed) / (2 * acceleration)
 
+func _ready():
+	label.visible = false
+	progress_ratio = 0.0
+
 func _process(delta: float) -> void:
+	label.text = '%s/%s' % [Event.train_passengers, int(Event.train_capacity.amt)]
 	linear_progress(delta)
 
 func linear_progress(delta) -> void:
@@ -40,17 +47,19 @@ func linear_progress(delta) -> void:
 
 func wait_at_midpoint():
 	Event.train_arrived = true
+	label.visible = true
 	var timer = get_tree().create_timer(20.0)
-	while get_tree().get_node_count_in_group("passengers") > 0:
-		if timer.time_left <= 0:
+	while timer.time_left > 0:
+		if Event.train_passengers >= Event.train_capacity.amt:
 			break
-		if Event.train_passengers > Event.
 		await get_tree().process_frame
 	state = "a"
 	Event.train_arrived = false
-	
+	label.visible = false
+
 func wait_at_end():
 	await get_tree().create_timer(10.0).timeout
+	Event.train_passengers = 0
 	progress_ratio = 0.0
 	speed = max_speed
 	state = "c"

@@ -13,7 +13,13 @@ func _on_button_pressed() -> void:
 func train_arrived():
 	for passenger in get_children():
 		passenger.board_train()
-		
+
+func train_departed():
+	for passenger in get_children():
+		passenger.boarding = false
+
 func _process(delta: float) -> void:
 	if Event.train_arrived:
 		train_arrived()
+	else:
+		train_departed()

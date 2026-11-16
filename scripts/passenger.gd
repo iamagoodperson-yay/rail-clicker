@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var active = false
-var boarding = false
+@export var boarding = false
 
 var speed = 30
 var angular_speed = PI/4

@@ -1,4 +1,8 @@
-extends Label
+extends Control
+
+@onready var money_label = $MoneyLabel
+@onready var passenger_label = $PassengerLabel
 
 func _process(delta):
-	text = 'Passengers: %s\nMoney: %s' % [Event.passenger_count, Event.money]
+	money_label.text = 'Money: %s' % Event.money
+	passenger_label.text = 'Waiting passengers: %s' % Event.passenger_count 
