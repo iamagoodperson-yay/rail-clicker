@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-@onready var label = $'../Label'
+@onready var label = $Label
 
 const max_speed = 0.2
 const acceleration = 0.05
@@ -8,7 +8,7 @@ var speed = max_speed
 
 const midpoint = 0.5
 var state = "c"
-var accel_dist = (max_speed * max_speed) / (2 * acceleration)
+var accel_dist = (max_speed * max_speed) / (2 * acceleration) 
 
 func _ready():
 	label.visible = false
@@ -55,9 +55,9 @@ func wait_at_midpoint():
 		await get_tree().process_frame
 	state = "a"
 	Event.train_arrived = false
-	label.visible = false
 
 func wait_at_end():
+	label.visible = false
 	Event.money = Event.train_passengers * Event.fare.amt
 	await get_tree().create_timer(Event.train_wait.amt).timeout
 	Event.train_passengers = 0

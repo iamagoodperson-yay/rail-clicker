@@ -1,8 +1,6 @@
-extends Control
+extends CanvasLayer
 
 @onready var money_label = $MoneyLabel
-@onready var passenger_label = $PassengerLabel
 
-func _process(delta):
+func _process(_delta):
 	money_label.text = 'Money: %s' % Event.money
-	passenger_label.text = 'Waiting passengers: %s' % Event.passenger_count 

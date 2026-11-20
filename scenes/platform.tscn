@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://73d0pcga6k17"]
+
+[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_r8v6l"]
+[ext_resource type="Script" uid="uid://bdrb7o22jojmt" path="res://scenes/platform.gd" id="1_u7qrw"]
+[ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_pvkk7"]
+[ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_1oqhx"]
+[ext_resource type="Script" uid="uid://d1yg1h5iree66" path="res://scripts/passenger_label.gd" id="4_u5530"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
+vertices = PackedVector2Array(742.3906, 199, 823.96094, 199, 823.03906, 445, 329, 445, 716.3672, 156.42188, 405.3203, 200, 442.40625, 160.59375, 329, 200, 454.5703, 82, 706.2578, 82)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5, 6), PackedInt32Array(3, 7, 5), PackedInt32Array(4, 6, 8, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(319, 455, 833, 455, 834, 189, 748, 189, 726, 153, 715, 72, 446, 72, 433, 156, 401, 190, 319, 190)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
+size = Vector2(512, 256)
+
+[sub_resource type="Theme" id="Theme_n1ckp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u7qrw"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.21487993, 0.79, 0.12640002, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Node" type="Node2D" unique_id=1237072286]
+script = ExtResource("1_u7qrw")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=312990249]
+position = Vector2(-576, -324)
+navigation_polygon = SubResource("NavigationPolygon_jyhfs")
+
+[node name="PlatformArea" type="Area2D" parent="NavigationRegion2D" unique_id=1393194558]
+position = Vector2(576, 324)
+
+[node name="Platform" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=1875020535]
+scale = Vector2(4, 2)
+texture = ExtResource("1_r8v6l")
+
+[node name="Hitbox" type="CollisionShape2D" parent="NavigationRegion2D/PlatformArea" unique_id=224902482]
+shape = SubResource("RectangleShape2D_d3t8h")
+
+[node name="PassengersContainer" type="Node2D" parent="NavigationRegion2D" unique_id=906272310]
+script = ExtResource("2_pvkk7")
+
+[node name="TrainContainer" type="Node2D" parent="NavigationRegion2D" unique_id=470225025]
+position = Vector2(-174, 131)
+
+[node name="Path2D" parent="NavigationRegion2D/TrainContainer" unique_id=1865679941 instance=ExtResource("3_1oqhx")]
+
+[node name="PassengerLabel" type="Label" parent="." unique_id=1908194990]
+offset_left = -88.0
+offset_top = 130.0
+offset_right = 91.0
+offset_bottom = 153.0
+text = "Waiting passengers: XX"
+horizontal_alignment = 1
+script = ExtResource("4_u5530")
+
+[node name="AddButton" type="Button" parent="." unique_id=1263491977]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 257.0
+offset_top = -26.0
+offset_right = 307.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_n1ckp")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_u7qrw")
+text = "+"
+
+[connection signal="input_event" from="NavigationRegion2D/PlatformArea" to="." method="_on_platform_area_input_event"]
+[connection signal="pressed" from="AddButton" to="NavigationRegion2D/PassengersContainer" method="_on_add_button_pressed"]

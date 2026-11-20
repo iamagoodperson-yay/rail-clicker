@@ -2,7 +2,7 @@ extends Node2D
 
 var pass_scene = preload("res://scenes/passenger.tscn")
 @onready var platform = $"../PlatformArea/Hitbox"
-@onready var train = $"../Path2D/PathFollow2D/Train"
+@onready var train = $"../TrainContainer/Path2D/PathFollow2D/Train"
 
 func _on_add_button_pressed() -> void:
 	Event.passenger_count += 1
@@ -22,7 +22,7 @@ func train_departed():
 	for passenger in get_children():
 		passenger.boarding = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Event.train_arrived:
 		train_arrived()
 	else:

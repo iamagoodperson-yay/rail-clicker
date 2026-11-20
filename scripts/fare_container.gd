@@ -3,14 +3,14 @@ extends HFlowContainer
 @onready var top_label = $'TopContainer/Label'
 @onready var btm_label = $'BottomContainer/Label'
 @onready var button = $'BottomContainer/Button'
-@onready var error_label = $'../../../ErrorLabel'
+@onready var error_label = get_node("/root/main/UI/ErrorLabel")
 
-var obj = Event.train_wait
+var obj = Event.fare
 
-func _process(delta):
-	top_label.text = "Time between trains: %s" % obj.amt
+func _process(_delta):
+	top_label.text = "Fare per passenger: %s" % obj.amt
 	btm_label.text = "Level: %s\nCost: %s" % [obj.level, obj.cost]
-	button.text = "Upgrade\n-%s Wait time" % obj.amt_inc
+	button.text = "Upgrade\n+%s Fare" % obj.amt_inc
 
 func _on_button_pressed() -> void:
 	if Event.money < obj.cost:
@@ -20,7 +20,8 @@ func _on_button_pressed() -> void:
 		error_label.text = "Error: Maximum level for upgrade"
 		error()
 	else:
-		obj.level += 1
+		error_label.visible = false
+		Event.upgrade(obj)
 
 func error():
 	error_label.visible = true

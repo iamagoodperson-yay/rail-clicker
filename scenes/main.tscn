@@ -1,110 +1,29 @@
 [gd_scene format=3 uid="uid://d18nkw05phsou"]
 
-[ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="1_sugp2"]
-[ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://73d0pcga6k17" path="res://scenes/platform.tscn" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://cbvjewbtuke80" path="res://scripts/camera_2d.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/label.gd" id="3_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_tbgi4"]
-[ext_resource type="Script" uid="uid://i6lh1psvufw4" path="res://scripts/capacity_label.gd" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://b0eh2pf007vs5" path="res://scripts/wait_label.gd" id="6_o6xl0"]
-[ext_resource type="Script" uid="uid://ei1rg1yu5721" path="res://scripts/fare_label.gd" id="7_tipki"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
-vertices = PackedVector2Array(742.3906, 199, 823.96094, 199, 823.03906, 445, 329, 445, 716.3672, 156.42188, 405.3203, 200, 442.40625, 160.59375, 329, 200, 454.5703, 82, 706.2578, 82)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5, 6), PackedInt32Array(3, 7, 5), PackedInt32Array(4, 6, 8, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(319, 455, 833, 455, 834, 189, 748, 189, 726, 153, 715, 72, 446, 72, 433, 156, 401, 190, 319, 190)])
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(512, 256)
-
-[sub_resource type="Theme" id="Theme_4hp5e"]
-
-[sub_resource type="Theme" id="Theme_xlch1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.21487993, 0.79, 0.12640002, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[ext_resource type="Script" uid="uid://i6lh1psvufw4" path="res://scripts/capacity_container.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://b0eh2pf007vs5" path="res://scripts/wait_container.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://ei1rg1yu5721" path="res://scripts/fare_container.gd" id="7_tipki"]
 
 [node name="main" type="Node" unique_id=417744697]
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=706189795]
-navigation_polygon = SubResource("NavigationPolygon_jyhfs")
-
-[node name="PlatformArea" type="Area2D" parent="NavigationRegion2D" unique_id=833660999]
+[node name="Node" parent="." unique_id=1804456063 instance=ExtResource("1_0wfyh")]
 position = Vector2(576, 324)
 
-[node name="Platform" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=592121929]
-scale = Vector2(4, 2)
-texture = ExtResource("1_sugp2")
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1416734512]
+position = Vector2(576, 324)
+script = ExtResource("2_tefeu")
 
-[node name="Hitbox" type="CollisionShape2D" parent="NavigationRegion2D/PlatformArea" unique_id=1935806620]
-shape = SubResource("RectangleShape2D_d3t8h")
-
-[node name="PassengersContainer" type="Node2D" parent="NavigationRegion2D" unique_id=2008254852]
-script = ExtResource("2_jyhfs")
-
-[node name="Path2D" parent="NavigationRegion2D" unique_id=1865679941 instance=ExtResource("3_tbgi4")]
-
-[node name="Centered" type="Control" parent="." unique_id=1308823877]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 576.0
-offset_top = 324.0
-offset_right = 576.0
-offset_bottom = 324.0
-theme = SubResource("Theme_4hp5e")
+[node name="UI" type="CanvasLayer" parent="." unique_id=573498268]
 script = ExtResource("3_jyhfs")
 
-[node name="MoneyLabel" type="Label" parent="Centered" unique_id=1083454301]
-layout_mode = 0
-offset_left = -63.0
-offset_top = -322.0
-offset_right = 63.0
-offset_bottom = -298.0
-pivot_offset_ratio = Vector2(0.5, 0.5)
-text = "Money: XXX"
-horizontal_alignment = 1
-
-[node name="PassengerLabel" type="Label" parent="Centered" unique_id=568198836]
-layout_mode = 0
-offset_left = -88.0
-offset_top = 130.0
-offset_right = 91.0
-offset_bottom = 153.0
-text = "Waiting passengers: XX"
-horizontal_alignment = 1
-
-[node name="AddButton" type="Button" parent="Centered" unique_id=1805030628]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 485.0
-offset_top = 207.0
-offset_right = 535.0
-offset_bottom = 257.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_xlch1")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_h2yge")
-text = "+"
-
-[node name="FoldableContainer" type="FoldableContainer" parent="Centered" unique_id=108985270]
-layout_mode = 1
-offset_left = -529.0
-offset_top = -17.0
-offset_right = -279.0
-offset_bottom = 292.0
+[node name="FoldableContainer" type="FoldableContainer" parent="UI" unique_id=739533237]
+offset_left = 40.0
+offset_top = 316.0
+offset_right = 290.0
+offset_bottom = 625.0
 pivot_offset_ratio = Vector2(0, 1)
 accessibility_region = true
 folded = true
@@ -112,112 +31,117 @@ title = "📈 Upgrades"
 title_alignment = 1
 title_position = 1
 
-[node name="VFlowContainer" type="VFlowContainer" parent="Centered/FoldableContainer" unique_id=1067438242]
+[node name="VFlowContainer" type="VFlowContainer" parent="UI/FoldableContainer" unique_id=956060734]
 visible = false
 layout_mode = 2
 alignment = 1
 
-[node name="CapacityLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=597102518]
+[node name="CapacityContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=1989668384]
 layout_mode = 2
 script = ExtResource("5_tbgi4")
 
-[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel" unique_id=1761397371]
+[node name="TopContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer" unique_id=805441265]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/TopContainer" unique_id=1834715240]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer/TopContainer" unique_id=135878050]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Train Capacity: xxx"
 
-[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel" unique_id=1821665455]
+[node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer" unique_id=163519767]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer" unique_id=1470855143]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer/BottomContainer" unique_id=1199149601]
 layout_mode = 2
 text = "Level: X
 Cost: XX"
 
-[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer" unique_id=224414177]
+[node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer/BottomContainer" unique_id=1839220182]
 layout_mode = 2
 text = "Upgrade
 +X capacity"
 
-[node name="WaitLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=1309673547]
+[node name="WaitContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=648167901]
 layout_mode = 2
 script = ExtResource("6_o6xl0")
 
-[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel" unique_id=126084046]
+[node name="TopContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/WaitContainer" unique_id=710377080]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/TopContainer" unique_id=60532533]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/WaitContainer/TopContainer" unique_id=1118073234]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Time between trains: xxx"
 
-[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel" unique_id=237285332]
+[node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/WaitContainer" unique_id=1140411565]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer" unique_id=118995720]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/WaitContainer/BottomContainer" unique_id=840075545]
 layout_mode = 2
 text = "Level: X
 Cost: XX"
 
-[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer" unique_id=1427881486]
+[node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/WaitContainer/BottomContainer" unique_id=422849720]
 layout_mode = 2
 text = "Upgrade
 -X Wait time"
 
-[node name="FareLabel" type="HFlowContainer" parent="Centered/FoldableContainer/VFlowContainer" unique_id=1852059416]
+[node name="FareContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=2137599148]
 layout_mode = 2
 script = ExtResource("7_tipki")
 
-[node name="TopContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/FareLabel" unique_id=940766809]
+[node name="TopContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/FareContainer" unique_id=1252867031]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/TopContainer" unique_id=1578248771]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/FareContainer/TopContainer" unique_id=1424141497]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Fare per passenger: xxx"
 
-[node name="BottomContainer" type="VFlowContainer" parent="Centered/FoldableContainer/VFlowContainer/FareLabel" unique_id=1159831178]
+[node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/FareContainer" unique_id=821640350]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer" unique_id=1015303222]
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/FareContainer/BottomContainer" unique_id=536232746]
 layout_mode = 2
 text = "Level: X
 Cost: XX"
 
-[node name="Button" type="Button" parent="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer" unique_id=2087871413]
+[node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/FareContainer/BottomContainer" unique_id=2018601900]
 layout_mode = 2
 text = "Upgrade
 +X Fare"
 
-[node name="ErrorLabel" type="Label" parent="Centered" unique_id=1161960994]
+[node name="MoneyLabel" type="Label" parent="UI" unique_id=1083454301]
+offset_left = 513.0
+offset_top = 12.0
+offset_right = 639.0
+offset_bottom = 36.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Money: XXX"
+horizontal_alignment = 1
+
+[node name="ErrorLabel" type="Label" parent="UI" unique_id=1161960994]
 visible = false
-layout_mode = 0
-offset_left = -89.0
-offset_top = 265.0
-offset_right = 147.0
-offset_bottom = 288.0
+offset_left = 487.0
+offset_top = 599.0
+offset_right = 723.0
+offset_bottom = 622.0
 theme_override_colors/font_color = Color(1, 0.100000024, 0.100000024, 1)
 text = "Error:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RestButton" type="Button" parent="Centered" unique_id=89585869]
-layout_mode = 0
-offset_left = 340.0
-offset_top = 259.0
-offset_right = 535.0
-offset_bottom = 291.0
+[node name="RestButton" type="Button" parent="UI" unique_id=89585869]
+offset_left = 916.0
+offset_top = 593.0
+offset_right = 1111.0
+offset_bottom = 625.0
 text = "❌ Reset All Passengers
 "
 
-[connection signal="pressed" from="Centered/AddButton" to="NavigationRegion2D/PassengersContainer" method="_on_add_button_pressed"]
-[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/CapacityLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/CapacityLabel" method="_on_button_pressed"]
-[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/WaitLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/WaitLabel" method="_on_button_pressed"]
-[connection signal="pressed" from="Centered/FoldableContainer/VFlowContainer/FareLabel/BottomContainer/Button" to="Centered/FoldableContainer/VFlowContainer/FareLabel" method="_on_button_pressed"]
-[connection signal="pressed" from="Centered/RestButton" to="NavigationRegion2D/PassengersContainer" method="_on_rest_button_pressed"]
+[connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/CapacityContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/CapacityContainer" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/WaitContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/WaitContainer" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/FareContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/FareContainer" method="_on_button_pressed"]
