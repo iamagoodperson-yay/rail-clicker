@@ -1,7 +1,8 @@
 extends Node2D
 
-var pass_scene = preload("res://scenes/passenger.tscn")
-@onready var platform = $"../PlatformArea/Hitbox"
+const pass_scene = preload("res://scenes/passenger.tscn")
+@onready var plat_node = $"../.."
+@onready var plat_hitbox = $"../PlatformArea/Hitbox"
 @onready var train_container = $"../TrainContainer/Path2D"
 var train: Array[Node]
 
@@ -10,15 +11,11 @@ func _ready():
 	pass
 
 func _on_add_button_pressed() -> void:
-	if Event.passenger_count < 50:
-		Event.passenger_count += 1
+	if plat_node.passenger_count < 20:
+		plat_node.passenger_count += 1
 		var passenger = pass_scene.instantiate()
 		add_child(passenger)
-		passenger.start(platform, train)
-
-func _on_rest_button_pressed() -> void:
-	for passenger in get_children():
-		passenger.start(platform, train)
+		passenger.start(plat_hitbox, train)
 
 func train_arrived():
 	for passenger in get_children():
@@ -29,7 +26,7 @@ func train_departed():
 		passenger.boarding = false
 
 func _process(_delta: float) -> void:
-	if Event.train_arrived:
+	if plat_node.train_arrived:
 		train_arrived()
 	else:
 		train_departed()

@@ -1,10 +1,5 @@
 extends Node
 
-var train_arrived = false
-var passenger_count = 0
-var train_passengers = 0
-var money = 0
-
 class upgradable:
 	var level: int = 0
 	var base_amt: float = 1.0
@@ -25,22 +20,29 @@ class upgradable:
 	var cost: int:
 		get:
 			return roundi(base_cost * pow(multiplier, level))
+	
+	func duplicate() -> upgradable:
+		var copy = upgradable.new()
+		copy.level = level
+		copy.base_amt = base_amt
+		copy.amt_inc = amt_inc
+		copy.max_level = max_level
+		copy.base_cost = base_cost
+		copy.multiplier = multiplier
+		return copy
 
-var train_capacity = upgradable.new()
-var train_wait = upgradable.new()
-var fare = upgradable.new()
+var money = 0
+var first_select = false
+var curr_select: Node
 
-func _ready():
-	train_capacity.base_amt = 10.0
-	train_capacity.amt_inc = 2.0
-	train_wait.base_amt = 10.0
-	train_wait.amt_inc = -2.0
-	train_wait.base_cost = 25.0
-	train_wait.max_level = 5
-	fare.base_amt = 1.0
-	fare.amt_inc = 0.2
-
-func upgrade(up: upgradable) -> upgradable:
+func upgrade(up: upgradable):
 	money -= up.cost
 	up.level += 1
-	return up
+
+func set_current_upgrades(curr: Node):
+	if curr_select:
+		curr_select.selected_label.visible = false
+
+	first_select = true
+	curr_select = curr
+	curr_select.selected_label.visible = true

@@ -7,10 +7,10 @@ var speed = 30
 var angular_speed = PI/4
 var action = 0
 
-var platform: Variant
+var plat_hitbox: Variant
 var plat_shape: RectangleShape2D
 var plat_size: Vector2
-const plat_padding = 16
+const plat_padding = 24
 
 var trains: Array[Node]
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
@@ -18,15 +18,15 @@ var trains: Array[Node]
 func _ready():
 	add_to_group('passengers')
 
-func start(platform_ref, trains_ref):
-	platform = platform_ref
+func start(plat_hitbox_ref, trains_ref):
+	plat_hitbox = plat_hitbox_ref
 	trains = trains_ref
 	
 	active = true
 	visible = true
 	rotation = randf_range(0,PI)
 	
-	plat_shape = platform.shape as RectangleShape2D
+	plat_shape = plat_hitbox.shape as RectangleShape2D
 	plat_size = plat_shape.size
 
 	var random_position = Vector2(
@@ -34,7 +34,7 @@ func start(platform_ref, trains_ref):
 		randf_range(-plat_size.y/2 + plat_padding, plat_size.y/2 - plat_padding)
 	)
 
-	global_position = platform.to_global(random_position)
+	global_position = plat_hitbox.to_global(random_position)
 	choose_action()
 
 func choose_action():
@@ -62,8 +62,8 @@ func board_train():
 	boarding = true
 	nav_agent.target_position = closest_train.global_position
 
-func keep_to_platform():
-	var local_position = platform.to_local(global_position)
+func keep_to_plat_hitbox():
+	var local_position = plat_hitbox.to_local(global_position)
 	local_position.x = clamp(
 		local_position.x,
 		-plat_size.x / 2 + plat_padding,
@@ -74,14 +74,12 @@ func keep_to_platform():
 		-plat_size.y / 2 + plat_padding,
 		plat_size.y / 2 - plat_padding
 	)
-	global_position = platform.to_global(local_position)
+	global_position = plat_hitbox.to_global(local_position)
 
 func boarded():
 	active = false
 	boarding = false
 	velocity = Vector2.ZERO
-	Event.passenger_count -= 1
-	Event.train_passengers += 1
 	queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -103,6 +101,6 @@ func _physics_process(delta: float) -> void:
 				rotation += angular_speed * delta
 			_:
 				velocity = Vector2.ZERO
-		keep_to_platform()
+		keep_to_plat_hitbox()
 		
 	move_and_slide()

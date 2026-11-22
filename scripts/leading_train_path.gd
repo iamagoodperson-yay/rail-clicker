@@ -2,6 +2,7 @@ extends PathFollow2D
 
 @onready var label = $Label
 @onready var path2d = get_parent()
+@onready var plat_node = $"../../../.."
 
 const max_speed = 0.2
 const acceleration = 0.05
@@ -15,11 +16,10 @@ var accel_dist = (max_speed * max_speed) / (2 * acceleration)
 func _ready():
 	children = path2d.get_child_count()
 	stop_point = 0.5 + (0.1370 * (children - 1.0)/2.0)
-	print(stop_point)
 	progress_ratio = 0.0
 
 func _process(delta: float) -> void:
-	label.text = '%s/%s' % [Event.train_passengers, int(Event.train_capacity.amt)]
+	label.text = '%s/%s' % [plat_node.train_passengers, int(plat_node.train_capacity.amt)]
 	linear_progress(delta)
 
 func linear_progress(delta) -> void:
@@ -51,19 +51,19 @@ func linear_progress(delta) -> void:
 
 
 func wait_at_stop_point():
-	Event.train_arrived = true
+	plat_node.train_arrived = true
 	var timer = get_tree().create_timer(15.0)
 	while timer.time_left > 0:
-		if Event.train_passengers >= Event.train_capacity.amt:
+		if plat_node.train_passengers >= plat_node.train_capacity.amt:
 			break
 		await get_tree().process_frame
 	state = "a"
-	Event.train_arrived = false
+	plat_node.train_arrived = false
 
 func wait_at_end():
-	Event.money += Event.train_passengers * Event.fare.amt
-	await get_tree().create_timer(Event.train_wait.amt).timeout
-	Event.train_passengers = 0
+	Event.money += plat_node.train_passengers * plat_node.fare.amt
+	await get_tree().create_timer(plat_node.train_wait.amt).timeout
+	plat_node.train_passengers = 0
 	progress_ratio = 0.0
 	speed = max_speed
 	state = "c"

@@ -5,15 +5,14 @@
 [ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_pvkk7"]
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_1oqhx"]
 [ext_resource type="Script" uid="uid://d1yg1h5iree66" path="res://scripts/passenger_label.gd" id="4_u5530"]
-[ext_resource type="Texture2D" uid="uid://c3bhp78m85if7" path="res://addons/at-icons/node/plus.svg" id="6_6f2a1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
-vertices = PackedVector2Array(828, 447, 326, 447, 326, 79, 828, 79)
+vertices = PackedVector2Array(828, 318, 325.03906, 318, 325.96094, 79, 828, 79)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(316, 457, 838, 457, 838, 69, 316, 69)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(315, 328, 838, 328, 838, 69, 316, 69)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(512, 256)
+size = Vector2(512, 128)
 
 [sub_resource type="Theme" id="Theme_n1ckp"]
 
@@ -37,10 +36,10 @@ position = Vector2(-576, -324)
 navigation_polygon = SubResource("NavigationPolygon_jyhfs")
 
 [node name="PlatformArea" type="Area2D" parent="NavigationRegion2D" unique_id=1393194558]
-position = Vector2(576, 324)
+position = Vector2(576, 260)
 
 [node name="Platform" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=1875020535]
-scale = Vector2(4, 2)
+scale = Vector2(4, 1)
 texture = ExtResource("1_r8v6l")
 
 [node name="Hitbox" type="CollisionShape2D" parent="NavigationRegion2D/PlatformArea" unique_id=224902482]
@@ -56,9 +55,8 @@ position = Vector2(-324, 131)
 
 [node name="PassengerLabel" type="Label" parent="." unique_id=1908194990]
 offset_left = -89.0
-offset_top = 130.0
+offset_top = -23.0
 offset_right = 90.0
-offset_bottom = 153.0
 text = "Waiting passengers: XX"
 horizontal_alignment = 1
 script = ExtResource("4_u5530")
@@ -69,17 +67,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 206.0
-offset_top = 130.0
-offset_right = 256.0
-offset_bottom = 180.0
+offset_left = 256.0
+offset_top = -89.0
+offset_right = 306.0
+offset_bottom = -39.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_n1ckp")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_u7qrw")
-icon = ExtResource("6_6f2a1")
-icon_alignment = 1
+text = "+"
+
+[node name="SelectedLabel" type="Label" parent="." unique_id=834909423]
+offset_left = -22.0
+offset_top = -112.0
+offset_right = 22.0
+offset_bottom = -55.243244
+theme_override_font_sizes/font_size = 40
+text = "📍"
+
+[node name="BuyBtnControl" type="Control" parent="." unique_id=1747158418]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -256.0
+offset_top = -258.0
+offset_right = 256.0
+
+[node name="BuyButton" type="Button" parent="BuyBtnControl" unique_id=1465724645]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Buy New Platform: XXX"
 
 [connection signal="input_event" from="NavigationRegion2D/PlatformArea" to="." method="_on_platform_area_input_event"]
 [connection signal="pressed" from="AddButton" to="NavigationRegion2D/PassengersContainer" method="_on_add_button_pressed"]
