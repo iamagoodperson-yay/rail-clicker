@@ -19,7 +19,7 @@ func _ready():
 	fare.amt_inc = 0.2
 
 
-func _on_platform_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_platform_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == 1:

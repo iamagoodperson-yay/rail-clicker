@@ -33,10 +33,10 @@ var fare = upgradable.new()
 func _ready():
 	train_capacity.base_amt = 10.0
 	train_capacity.amt_inc = 2.0
-	train_wait.base_amt = 16.0
+	train_wait.base_amt = 10.0
 	train_wait.amt_inc = -2.0
-	train_wait.base_cost = 20.0
-	train_wait.max_level = 8
+	train_wait.base_cost = 25.0
+	train_wait.max_level = 5
 	fare.base_amt = 1.0
 	fare.amt_inc = 0.2
 

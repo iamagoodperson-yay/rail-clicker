@@ -1,17 +1,21 @@
 extends PathFollow2D
 
 @onready var label = $Label
+@onready var path2d = get_parent()
 
 const max_speed = 0.2
 const acceleration = 0.05
 var speed = max_speed
 
-const midpoint = 0.5
+var children: int
+var stop_point: float
 var state = "c"
-var accel_dist = (max_speed * max_speed) / (2 * acceleration) 
+var accel_dist = (max_speed * max_speed) / (2 * acceleration)
 
 func _ready():
-	label.visible = false
+	children = path2d.get_child_count()
+	stop_point = 0.5 + (0.1370 * (children - 1.0)/2.0)
+	print(stop_point)
 	progress_ratio = 0.0
 
 func _process(delta: float) -> void:
@@ -23,11 +27,12 @@ func linear_progress(delta) -> void:
 		"d":
 			speed = move_toward(speed, 0.0, acceleration * delta)
 			if speed <= 0.0:
+				progress_ratio = stop_point
 				speed = 0.0
 				state = "m"
-				wait_at_midpoint()
+				wait_at_stop_point()
 		"c":
-			if progress_ratio >= midpoint - accel_dist and progress_ratio < midpoint:
+			if progress_ratio >= stop_point - accel_dist and progress_ratio < stop_point:
 				state = "d"
 		"a":
 			speed = move_toward(speed, max_speed, acceleration * delta)
@@ -45,9 +50,8 @@ func linear_progress(delta) -> void:
 		wait_at_end()
 
 
-func wait_at_midpoint():
+func wait_at_stop_point():
 	Event.train_arrived = true
-	label.visible = true
 	var timer = get_tree().create_timer(15.0)
 	while timer.time_left > 0:
 		if Event.train_passengers >= Event.train_capacity.amt:
@@ -57,8 +61,7 @@ func wait_at_midpoint():
 	Event.train_arrived = false
 
 func wait_at_end():
-	label.visible = false
-	Event.money = Event.train_passengers * Event.fare.amt
+	Event.money += Event.train_passengers * Event.fare.amt
 	await get_tree().create_timer(Event.train_wait.amt).timeout
 	Event.train_passengers = 0
 	progress_ratio = 0.0

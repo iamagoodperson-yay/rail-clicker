@@ -12,19 +12,19 @@ var plat_shape: RectangleShape2D
 var plat_size: Vector2
 const plat_padding = 16
 
-var train: Node2D
+var trains: Array[Node]
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
 func _ready():
 	add_to_group('passengers')
 
-func start(platform_ref, train_ref):
+func start(platform_ref, trains_ref):
 	platform = platform_ref
-	train = train_ref
+	trains = trains_ref
 	
 	active = true
 	visible = true
-	rotation = randf_range(0,TAU)
+	rotation = randf_range(0,PI)
 	
 	plat_shape = platform.shape as RectangleShape2D
 	plat_size = plat_shape.size
@@ -48,9 +48,19 @@ func choose_action():
 func board_train():
 	if not active or boarding:
 		return
+	
+	var closest_train: Node2D
+	var distance = INF
+	
+	for train in trains:
+		var dist = global_position.distance_to(train.global_position)
+		
+		if dist < distance:
+			distance = dist
+			closest_train = train
 
 	boarding = true
-	nav_agent.target_position = train.global_position
+	nav_agent.target_position = closest_train.global_position
 
 func keep_to_platform():
 	var local_position = platform.to_local(global_position)
