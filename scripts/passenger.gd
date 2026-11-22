@@ -42,7 +42,7 @@ func choose_action():
 		action = 0
 		await get_tree().create_timer(randf_range(2.5, 10.0)).timeout
 		
-		action = randi_range(1,2)
+		action = randi_range(1,3)
 		await get_tree().create_timer(randf_range(1.5, 5)).timeout
 		
 func board_train():
@@ -99,6 +99,9 @@ func _physics_process(delta: float) -> void:
 			2:
 				velocity = Vector2.ZERO
 				rotation += angular_speed * delta
+			3:
+				velocity = Vector2.ZERO
+				rotation -= angular_speed * delta
 			_:
 				velocity = Vector2.ZERO
 		keep_to_plat_hitbox()

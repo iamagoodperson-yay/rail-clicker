@@ -13,7 +13,7 @@ func _ready() -> void:
 func add_new_platform():
 	var platform = plat_scene.instantiate()
 	var plat_count = get_child_count()
-	platform.position = center + spacing * plat_count + train_gap * floori(plat_count / 2)
+	platform.position = center + spacing * plat_count + train_gap * floori(plat_count / 2.0)
 	platform.cost = roundi(100 * pow(2, plat_count-1))
 	add_child(platform)
 

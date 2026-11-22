@@ -69,3 +69,4 @@ func _on_buy_button_pressed() -> void:
 func _process(_delta: float) -> void:
 	pass_label.text = 'Waiting passengers: %s' % passenger_count
 	buy_btn.text = 'Buy New Platform: %s' % cost
+	buy_btn.disabled = Event.money < cost

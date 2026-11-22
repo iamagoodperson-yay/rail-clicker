@@ -18,5 +18,5 @@ func _process(delta: float) -> void:
 	offset.y = clamp(
 		offset.y,
 		-558,
-		300 + 324 * Event.active_plat
+		300 + 258 * Event.active_plat + 20 * floori(Event.active_plat / 2.0)
 	)

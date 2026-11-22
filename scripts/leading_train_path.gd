@@ -53,6 +53,7 @@ func linear_progress(delta) -> void:
 		progress_ratio = 1.0
 		speed = 0.0
 		state = "e"
+		Event.money += plat_node.train_passengers * plat_node.fare.amt
 		wait_at_end()
 
 
@@ -67,8 +68,14 @@ func wait_at_stop_point():
 	plat_node.train_arrived = false
 
 func wait_at_end():
-	Event.money += plat_node.train_passengers * plat_node.fare.amt
-	await get_tree().create_timer(plat_node.train_wait.amt).timeout
+	var wait = plat_node.train_wait.amt
+	var timer = get_tree().create_timer(wait)
+	while timer.time_left > 0:
+		await get_tree().process_frame
+		if plat_node.train_wait.amt != wait:
+			break
+	if plat_node.train_wait.amt != wait:
+		wait_at_end()
 	plat_node.train_passengers = 0
 	progress_ratio = 0.0
 	speed = max_speed

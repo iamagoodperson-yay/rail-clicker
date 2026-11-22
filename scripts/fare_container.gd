@@ -10,23 +10,13 @@ var obj: Event.upgradable
 func _process(_delta):
 	if Event.curr_select == null:
 		return
-	obj = Event.curr_select.spawnrate
+	obj = Event.curr_select.fare
 	
 	top_label.text = "Fare per passenger: %s" % obj.amt
 	btm_label.text = "Level: %s\nCost: %s" % [obj.level, obj.cost]
 	button.text = "Upgrade\n+%s coins/passenger" % obj.amt_inc
 
-func _on_button_pressed() -> void:
-	if Event.money < obj.cost:
-		error("Not enough money")
-	elif obj.is_maxxed:
-		error("Maximum level for upgrade")
-	else:
-		error_label.visible = false
-		Event.upgrade(obj)
+	button.disabled = Event.money < obj.cost or obj.is_maxxed
 
-func error(text):
-	error_label.text = "Error: %s" % text
-	error_label.visible = true
-	await get_tree().create_timer(3.0).timeout
-	error_label.visible = false
+func _on_button_pressed() -> void:
+	Event.upgrade(obj)

@@ -29,13 +29,24 @@ func train_departed():
 		passenger.boarding = false
 
 func spawnrate():
+	var prev_spawnrate = 0.0
 	while true:
-		if plat_node.spawnrate.amt == 0 or plat_node.passenger_count >= 20:
+		var rate = plat_node.spawnrate.amt
+		if rate <= 0 or plat_node.passenger_count >= 20:
+			prev_spawnrate = rate
 			await get_tree().process_frame
 			continue
-
-		await get_tree().create_timer(1.0 / plat_node.spawnrate.amt).timeout
-		spawn()
+		if rate != prev_spawnrate:
+			prev_spawnrate = rate
+		var timer = get_tree().create_timer(1.0 / rate)
+		while timer.time_left > 0:
+			await get_tree().process_frame
+			if plat_node.spawnrate.amt != rate:
+				break
+		if plat_node.spawnrate.amt != rate:
+			continue
+		if plat_node.passenger_count < 20:
+			spawn()
 
 func _process(_delta: float) -> void:
 	if plat_node.train_arrived:

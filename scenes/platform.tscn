@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_1oqhx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
-vertices = PackedVector2Array(255, 130, -255, 130, -255, -114, 255, -114)
+vertices = PackedVector2Array(245, 120, -245, 120, -245, -104, 245, -104)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-265.00003, 139.99995, 264.99997, 140.00005, 265.00003, -123.999954, -264.99997, -124.000046)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-255, 130, 255, 130, 255, -114, -255, -114)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(506, 122)
+size = Vector2(512, 128)
 
 [sub_resource type="Theme" id="Theme_n1ckp"]
 
