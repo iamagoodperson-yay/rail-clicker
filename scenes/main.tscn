@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d18nkw05phsou"]
 
 [ext_resource type="PackedScene" uid="uid://73d0pcga6k17" path="res://scenes/platform.tscn" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://k2k6yqqkj60h" path="res://scripts/platforms_container.gd" id="1_o6xl0"]
 [ext_resource type="Script" uid="uid://cbvjewbtuke80" path="res://scripts/camera_2d.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/UI.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://i6lh1psvufw4" path="res://scripts/capacity_container.gd" id="5_tbgi4"]
@@ -9,8 +10,14 @@
 
 [node name="main" type="Node" unique_id=417744697]
 
-[node name="Node" parent="." unique_id=1237072286 instance=ExtResource("1_0wfyh")]
+[node name="PlatformsContainer" type="Node2D" parent="." unique_id=1646176220]
+script = ExtResource("1_o6xl0")
+
+[node name="Node" parent="PlatformsContainer" unique_id=1237072286 instance=ExtResource("1_0wfyh")]
 position = Vector2(576, 324)
+
+[node name="Node2" parent="PlatformsContainer" unique_id=1815418686 instance=ExtResource("1_0wfyh")]
+position = Vector2(575, 584)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1416734512]
 position = Vector2(576, 324)
