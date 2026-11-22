@@ -9,4 +9,4 @@ func _ready():
 
 func _process(_delta):
 	upgrade_foldable.visible = Event.first_select
-	money_label.text = 'Money: %s' % Event.money
+	money_label.text = 'Coins: %s' % Event.money

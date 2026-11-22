@@ -14,6 +14,7 @@ var cost = 0
 var train_capacity = Event.upgradable.new()
 var train_wait = Event.upgradable.new()
 var fare = Event.upgradable.new()
+var spawnrate = Event.upgradable.new()
 
 var train_arrived = false
 var passenger_count = 0
@@ -28,12 +29,15 @@ func _ready():
 	
 	train_capacity.base_amt = 10.0
 	train_capacity.amt_inc = 2.0
-	train_wait.base_amt = 16.0
+	train_wait.base_amt = 10.0
 	train_wait.amt_inc = -2.0
 	train_wait.base_cost = 20.0
-	train_wait.max_level = 8
+	train_wait.max_level = 5
 	fare.base_amt = 1.0
 	fare.amt_inc = 0.2
+	spawnrate.base_amt = 0.0
+	spawnrate.amt_inc = 0.1
+	spawnrate.base_cost = 20.0
 
 func activate(flip: bool):
 	active = true

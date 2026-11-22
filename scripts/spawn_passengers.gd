@@ -8,14 +8,17 @@ var train: Array[Node]
 
 func _ready():
 	train = train_container.get_children()
-	pass
+	spawnrate()
+
+func spawn():
+	plat_node.passenger_count += 1
+	var passenger = pass_scene.instantiate()
+	add_child(passenger)
+	passenger.start(plat_hitbox, train)
 
 func _on_add_button_pressed() -> void:
 	if plat_node.passenger_count < 20:
-		plat_node.passenger_count += 1
-		var passenger = pass_scene.instantiate()
-		add_child(passenger)
-		passenger.start(plat_hitbox, train)
+		spawn()
 
 func train_arrived():
 	for passenger in get_children():
@@ -24,6 +27,15 @@ func train_arrived():
 func train_departed():
 	for passenger in get_children():
 		passenger.boarding = false
+
+func spawnrate():
+	while true:
+		if plat_node.spawnrate.amt == 0 or plat_node.passenger_count >= 20:
+			await get_tree().process_frame
+			continue
+
+		await get_tree().create_timer(1.0 / plat_node.spawnrate.amt).timeout
+		spawn()
 
 func _process(_delta: float) -> void:
 	if plat_node.train_arrived:

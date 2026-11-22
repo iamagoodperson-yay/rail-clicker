@@ -11,7 +11,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-265.00003, 139.99995, 264.99997, 140.00005, 265.00003, -123.999954, -264.99997, -124.000046)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
-size = Vector2(512, 128)
+size = Vector2(506, 122)
 
 [sub_resource type="Theme" id="Theme_n1ckp"]
 

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://c7623o8v1wvvx" path="res://scripts/UI.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://i6lh1psvufw4" path="res://scripts/capacity_container.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://b0eh2pf007vs5" path="res://scripts/wait_container.gd" id="6_o6xl0"]
+[ext_resource type="Script" uid="uid://cjkrro2lg068y" path="res://scripts/spawn_container.gd" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://ei1rg1yu5721" path="res://scripts/fare_container.gd" id="7_tipki"]
 
 [node name="main" type="Node" unique_id=417744697]
@@ -21,20 +22,17 @@ script = ExtResource("3_jyhfs")
 
 [node name="FoldableContainer" type="FoldableContainer" parent="UI" unique_id=739533237]
 offset_left = 40.0
-offset_top = 316.0
-offset_right = 290.0
+offset_top = 228.0
+offset_right = 329.0
 offset_bottom = 625.0
 pivot_offset_ratio = Vector2(0, 1)
 accessibility_region = true
-folded = true
 title = "📈 Upgrades"
 title_alignment = 1
 title_position = 1
 
 [node name="VFlowContainer" type="VFlowContainer" parent="UI/FoldableContainer" unique_id=956060734]
-visible = false
 layout_mode = 2
-alignment = 1
 
 [node name="CapacityContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=1989668384]
 layout_mode = 2
@@ -46,7 +44,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer/TopContainer" unique_id=135878050]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Train Capacity: xxx"
+text = "Train Capacity: xxx passengers"
 
 [node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer" unique_id=163519767]
 layout_mode = 2
@@ -60,7 +58,7 @@ Cost: XX"
 [node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/CapacityContainer/BottomContainer" unique_id=1839220182]
 layout_mode = 2
 text = "Upgrade
-+X capacity"
++X passengers"
 
 [node name="WaitContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=648167901]
 layout_mode = 2
@@ -72,7 +70,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/WaitContainer/TopContainer" unique_id=1118073234]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Time between trains: xxx"
+text = "Time between trains: xxx sec/train"
 
 [node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/WaitContainer" unique_id=1140411565]
 layout_mode = 2
@@ -86,7 +84,7 @@ Cost: XX"
 [node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/WaitContainer/BottomContainer" unique_id=422849720]
 layout_mode = 2
 text = "Upgrade
--X Wait time"
+-X sec/train"
 
 [node name="FareContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=2137599148]
 layout_mode = 2
@@ -112,7 +110,33 @@ Cost: XX"
 [node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/FareContainer/BottomContainer" unique_id=2018601900]
 layout_mode = 2
 text = "Upgrade
-+X Fare"
++X coins/passenger"
+
+[node name="SpawnContainer" type="HFlowContainer" parent="UI/FoldableContainer/VFlowContainer" unique_id=471896873]
+layout_mode = 2
+script = ExtResource("7_o6xl0")
+
+[node name="TopContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/SpawnContainer" unique_id=1518330562]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/SpawnContainer/TopContainer" unique_id=970497632]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Spawnrate: %s passengers/sec"
+
+[node name="BottomContainer" type="VFlowContainer" parent="UI/FoldableContainer/VFlowContainer/SpawnContainer" unique_id=1545340631]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/FoldableContainer/VFlowContainer/SpawnContainer/BottomContainer" unique_id=1894186615]
+layout_mode = 2
+text = "Level: X
+Cost: XX"
+
+[node name="Button" type="Button" parent="UI/FoldableContainer/VFlowContainer/SpawnContainer/BottomContainer" unique_id=226808902]
+layout_mode = 2
+text = "Upgrade
+XX passengers/sec"
 
 [node name="MoneyLabel" type="Label" parent="UI" unique_id=1083454301]
 offset_left = 513.0
@@ -120,7 +144,7 @@ offset_top = 12.0
 offset_right = 639.0
 offset_bottom = 36.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-text = "Money: XXX"
+text = "Coins: XXX"
 horizontal_alignment = 1
 
 [node name="ErrorLabel" type="Label" parent="UI" unique_id=1161960994]
@@ -136,3 +160,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/CapacityContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/CapacityContainer" method="_on_button_pressed"]
 [connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/WaitContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/WaitContainer" method="_on_button_pressed"]
 [connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/FareContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/FareContainer" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/FoldableContainer/VFlowContainer/SpawnContainer/BottomContainer/Button" to="UI/FoldableContainer/VFlowContainer/SpawnContainer" method="_on_button_pressed"]

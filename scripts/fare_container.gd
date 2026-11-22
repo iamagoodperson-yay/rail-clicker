@@ -10,11 +10,11 @@ var obj: Event.upgradable
 func _process(_delta):
 	if Event.curr_select == null:
 		return
-	obj = Event.curr_select.fare
+	obj = Event.curr_select.spawnrate
 	
 	top_label.text = "Fare per passenger: %s" % obj.amt
 	btm_label.text = "Level: %s\nCost: %s" % [obj.level, obj.cost]
-	button.text = "Upgrade\n+%s Fare" % obj.amt_inc
+	button.text = "Upgrade\n+%s coins/passenger" % obj.amt_inc
 
 func _on_button_pressed() -> void:
 	if Event.money < obj.cost:

@@ -12,9 +12,9 @@ func _process(_delta):
 		return
 	obj = Event.curr_select.train_wait
 	
-	top_label.text = "Time between trains: %s" % obj.amt
+	top_label.text = "Time between trains: %s sec/train" % obj.amt
 	btm_label.text = "Level: %s\nCost: %s" % [obj.level, obj.cost]
-	button.text = "Upgrade\n%s Wait time" % obj.amt_inc
+	button.text = "Upgrade\n%s sec/train" % obj.amt_inc
 
 func _on_button_pressed() -> void:
 	if Event.money < obj.cost:

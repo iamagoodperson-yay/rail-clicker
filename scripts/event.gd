@@ -2,7 +2,7 @@ extends Node
 
 class upgradable:
 	var level: int = 0
-	var base_amt: float = 1.0
+	var base_amt: float = 0.0
 	var amt_inc: float = 1.0
 	var max_level: int = 999
 	
