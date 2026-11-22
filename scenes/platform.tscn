@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bdrb7o22jojmt" path="res://scripts/platform.gd" id="1_u7qrw"]
 [ext_resource type="Script" uid="uid://dr7yyuyadmy0w" path="res://scripts/spawn_passengers.gd" id="2_pvkk7"]
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_1oqhx"]
-[ext_resource type="Script" uid="uid://d1yg1h5iree66" path="res://scripts/passenger_label.gd" id="4_u5530"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
 vertices = PackedVector2Array(828, 318, 325.03906, 318, 325.96094, 79, 828, 79)
@@ -59,7 +58,6 @@ offset_top = -23.0
 offset_right = 90.0
 text = "Waiting passengers: XX"
 horizontal_alignment = 1
-script = ExtResource("4_u5530")
 
 [node name="AddButton" type="Button" parent="." unique_id=1263491977]
 anchors_preset = 8
@@ -87,7 +85,6 @@ theme_override_font_sizes/font_size = 40
 text = "📍"
 
 [node name="BuyBtnControl" type="Control" parent="." unique_id=1747158418]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -256.0
@@ -105,3 +102,4 @@ text = "Buy New Platform: XXX"
 
 [connection signal="input_event" from="NavigationRegion2D/PlatformArea" to="." method="_on_platform_area_input_event"]
 [connection signal="pressed" from="AddButton" to="NavigationRegion2D/PassengersContainer" method="_on_add_button_pressed"]
+[connection signal="pressed" from="BuyBtnControl/BuyButton" to="." method="_on_buy_button_pressed"]

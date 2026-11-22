@@ -19,8 +19,9 @@ func _ready():
 	progress_ratio = 0.0
 
 func _process(delta: float) -> void:
-	label.text = '%s/%s' % [plat_node.train_passengers, int(plat_node.train_capacity.amt)]
-	linear_progress(delta)
+	if plat_node.active:
+		label.text = '%s/%s' % [plat_node.train_passengers, int(plat_node.train_capacity.amt)]
+		linear_progress(delta)
 
 func linear_progress(delta) -> void:
 	match state:

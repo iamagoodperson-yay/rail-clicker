@@ -20,18 +20,9 @@ class upgradable:
 	var cost: int:
 		get:
 			return roundi(base_cost * pow(multiplier, level))
-	
-	func duplicate() -> upgradable:
-		var copy = upgradable.new()
-		copy.level = level
-		copy.base_amt = base_amt
-		copy.amt_inc = amt_inc
-		copy.max_level = max_level
-		copy.base_cost = base_cost
-		copy.multiplier = multiplier
-		return copy
 
 var money = 0
+var active_plat = 0
 var first_select = false
 var curr_select: Node
 
