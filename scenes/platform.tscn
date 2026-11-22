@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c6wjjnoasaug1" path="res://scenes/train.tscn" id="3_1oqhx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jyhfs"]
-vertices = PackedVector2Array(828, 318, 325.03906, 318, 325.96094, 79, 828, 79)
+vertices = PackedVector2Array(255, 130, -255, 130, -255, -114, 255, -114)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(315, 328, 838, 328, 838, 69, 316, 69)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-265.00003, 139.99995, 264.99997, 140.00005, 265.00003, -123.999954, -264.99997, -124.000046)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3t8h"]
 size = Vector2(512, 128)
@@ -31,13 +31,12 @@ corner_detail = 5
 script = ExtResource("1_u7qrw")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=312990249]
-position = Vector2(-576, -324)
 navigation_polygon = SubResource("NavigationPolygon_jyhfs")
 
 [node name="PlatformArea" type="Area2D" parent="NavigationRegion2D" unique_id=1393194558]
-position = Vector2(576, 260)
+position = Vector2(0, 66)
 
-[node name="Platform" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=1875020535]
+[node name="Train" type="Sprite2D" parent="NavigationRegion2D/PlatformArea" unique_id=1875020535]
 scale = Vector2(4, 1)
 texture = ExtResource("1_r8v6l")
 
@@ -45,17 +44,20 @@ texture = ExtResource("1_r8v6l")
 shape = SubResource("RectangleShape2D_d3t8h")
 
 [node name="PassengersContainer" type="Node2D" parent="NavigationRegion2D" unique_id=906272310]
+position = Vector2(0, 66)
 script = ExtResource("2_pvkk7")
 
 [node name="TrainContainer" type="Node2D" parent="NavigationRegion2D" unique_id=470225025]
-position = Vector2(-324, 131)
+position = Vector2(0, 65)
 
 [node name="Path2D" parent="NavigationRegion2D/TrainContainer" unique_id=1865679941 instance=ExtResource("3_1oqhx")]
+position = Vector2(-900, -131)
 
 [node name="PassengerLabel" type="Label" parent="." unique_id=1908194990]
 offset_left = -89.0
-offset_top = -23.0
+offset_top = 101.0
 offset_right = 90.0
+offset_bottom = 124.0
 text = "Waiting passengers: XX"
 horizontal_alignment = 1
 
@@ -66,9 +68,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 256.0
-offset_top = -89.0
+offset_top = 40.0
 offset_right = 306.0
-offset_bottom = -39.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_n1ckp")
@@ -78,18 +80,20 @@ text = "+"
 
 [node name="SelectedLabel" type="Label" parent="." unique_id=834909423]
 offset_left = -22.0
-offset_top = -112.0
+offset_top = 17.0
 offset_right = 22.0
-offset_bottom = -55.243244
+offset_bottom = 73.75676
 theme_override_font_sizes/font_size = 40
 text = "📍"
 
 [node name="BuyBtnControl" type="Control" parent="." unique_id=1747158418]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -256.0
-offset_top = -258.0
+offset_top = -130.0
 offset_right = 256.0
+offset_bottom = 128.0
 
 [node name="BuyButton" type="Button" parent="BuyBtnControl" unique_id=1465724645]
 layout_mode = 1

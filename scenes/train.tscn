@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://cffqcpdrdv5vo" path="res://scripts/train_area_2d.gd" id="3_6b7q7"]
 [ext_resource type="Script" uid="uid://enfy3c83003y" path="res://scripts/follow_train_path.gd" id="4_muh0j"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
+
 [sub_resource type="Curve2D" id="Curve2D_sugp2"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 150, 0, 0, 0, 0, 350, 0, 0, 0, 0, 0, 1450, 0, 0, 0, 0, 0, 1800, 150)
@@ -15,6 +17,7 @@ point_count = 4
 size = Vector2(238.00125, 77.99609)
 
 [node name="Path2D" type="Path2D" unique_id=1865679941]
+material = SubResource("ShaderMaterial_o6xl0")
 curve = SubResource("Curve2D_sugp2")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1926359726]
@@ -27,10 +30,15 @@ script = ExtResource("1_68jl8")
 scale = Vector2(2, 1)
 texture = ExtResource("2_d43s7")
 
-[node name="Label" type="Label" parent="PathFollow2D" unique_id=276590280]
-offset_left = -25.0
+[node name="Control" type="Control" parent="PathFollow2D" unique_id=1746536662]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="PathFollow2D/Control" unique_id=1442841492]
+layout_mode = 0
+offset_left = -24.481628
 offset_top = -87.0
-offset_right = 25.0
+offset_right = 25.518372
 offset_bottom = -64.0
 text = "X/X"
 horizontal_alignment = 1
@@ -54,10 +62,15 @@ leading = NodePath("../PathFollow2D")
 scale = Vector2(2, 1)
 texture = ExtResource("2_d43s7")
 
-[node name="Label" type="Label" parent="PathFollow2D2" unique_id=425438206]
-offset_left = -25.0
+[node name="Control" type="Control" parent="PathFollow2D2" unique_id=1033034351]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="PathFollow2D2/Control" unique_id=1441794121]
+layout_mode = 0
+offset_left = -24.481628
 offset_top = -87.0
-offset_right = 25.0
+offset_right = 25.518372
 offset_bottom = -64.0
 text = "X/X"
 horizontal_alignment = 1

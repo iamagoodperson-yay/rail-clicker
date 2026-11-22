@@ -1,6 +1,7 @@
 extends PathFollow2D
 
-@onready var label = $Label
+@onready var control = $Control
+@onready var label = $"Control/Label"
 @onready var path2d = get_parent()
 @onready var plat_node = $"../../../.."
 
@@ -13,6 +14,8 @@ var stop_point: float
 var state = "c"
 var accel_dist = (max_speed * max_speed) / (2 * acceleration)
 
+var flipped = false
+
 func _ready():
 	children = path2d.get_child_count()
 	stop_point = 0.5 + (0.1370 * (children - 1.0)/2.0)
@@ -22,6 +25,8 @@ func _process(delta: float) -> void:
 	if plat_node.active:
 		label.text = '%s/%s' % [plat_node.train_passengers, int(plat_node.train_capacity.amt)]
 		linear_progress(delta)
+		if flipped:
+			control.rotation = PI
 
 func linear_progress(delta) -> void:
 	match state:

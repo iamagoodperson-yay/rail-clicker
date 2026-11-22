@@ -6,6 +6,7 @@ extends Node2D
 @onready var selected_label = $SelectedLabel
 @onready var buy_btn_control = $BuyBtnControl
 @onready var buy_btn = $'BuyBtnControl/BuyButton'
+@onready var path2d = $"NavigationRegion2D/TrainContainer/Path2D"
 
 var active = false
 var cost = 0
@@ -34,12 +35,20 @@ func _ready():
 	fare.base_amt = 1.0
 	fare.amt_inc = 0.2
 
-func activate():
+func activate(flip: bool):
 	active = true
+	
 	nav_region.visible = true
 	pass_label.visible = true
 	add_btn.visible = true
 	buy_btn_control.visible = false
+	if flip:
+		nav_region.rotation = PI
+		pass_label.position.y -= 226
+		add_btn.position.y -= 130
+		selected_label.position.y -= 130
+		for path_follow in path2d.get_children():
+			path_follow.flipped = true
 
 func _on_platform_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -50,8 +59,9 @@ func _on_platform_area_input_event(_viewport: Node, event: InputEvent, _shape_id
 func _on_buy_button_pressed() -> void:
 	if Event.money >= cost:
 		Event.active_plat += 1
-		activate()
+		Event.money -= cost
+		activate(Event.active_plat % 2 == 0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass_label.text = 'Waiting passengers: %s' % passenger_count
 	buy_btn.text = 'Buy New Platform: %s' % cost
