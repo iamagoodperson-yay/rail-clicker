@@ -21,7 +21,7 @@ class upgradable:
 		get:
 			return roundi(base_cost * pow(multiplier, level))
 
-var money = 1000
+var money = 0
 var active_plat = 0
 var first_select = false
 var curr_select: Node
