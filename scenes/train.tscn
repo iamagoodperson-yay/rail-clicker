@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnykljyee1lxx" path="res://scripts/leading_train_path.gd" id="1_68jl8"]
 [ext_resource type="Texture2D" uid="uid://cgcqmtok1vfwm" path="res://icon.svg" id="2_d43s7"]
+[ext_resource type="Script" uid="uid://cd5k7epogqa75" path="res://scripts/navigation_obstacle_2d.gd" id="2_o1hdh"]
 [ext_resource type="Script" uid="uid://cffqcpdrdv5vo" path="res://scripts/train_area_2d.gd" id="3_6b7q7"]
 [ext_resource type="Script" uid="uid://enfy3c83003y" path="res://scripts/follow_train_path.gd" id="4_muh0j"]
 
@@ -20,21 +21,27 @@ size = Vector2(238.00125, 77.99609)
 material = SubResource("ShaderMaterial_o6xl0")
 curve = SubResource("Curve2D_sugp2")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1926359726]
+[node name="PathFollow2D1" type="PathFollow2D" parent="." unique_id=1926359726]
 position = Vector2(1027.5178, 0)
 progress = 1058.3066
 loop = false
 script = ExtResource("1_68jl8")
 
-[node name="Train" type="Sprite2D" parent="PathFollow2D" unique_id=1354929336]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="PathFollow2D1" unique_id=1024884172]
+position = Vector2(0.48217773, 0)
+scale = Vector2(2, 1)
+vertices = PackedVector2Array(-64, -64, -64, 64, 64, 64, 64, -64)
+script = ExtResource("2_o1hdh")
+
+[node name="Train" type="Sprite2D" parent="PathFollow2D1" unique_id=1354929336]
 scale = Vector2(2, 1)
 texture = ExtResource("2_d43s7")
 
-[node name="Control" type="Control" parent="PathFollow2D" unique_id=1746536662]
+[node name="Control" type="Control" parent="PathFollow2D1" unique_id=1746536662]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Label" type="Label" parent="PathFollow2D/Control" unique_id=1442841492]
+[node name="Label" type="Label" parent="PathFollow2D1/Control" unique_id=1442841492]
 layout_mode = 0
 offset_left = -24.481628
 offset_top = -87.0
@@ -45,10 +52,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TrainArea2D" type="Area2D" parent="PathFollow2D" unique_id=452793502]
+[node name="TrainArea2D" type="Area2D" parent="PathFollow2D1" unique_id=452793502]
 script = ExtResource("3_6b7q7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/TrainArea2D" unique_id=1480783289]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D1/TrainArea2D" unique_id=1480783289]
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_d3t8h")
 
@@ -57,7 +64,13 @@ position = Vector2(772.4816, 0)
 progress = 803.27057
 loop = false
 script = ExtResource("4_muh0j")
-leading = NodePath("../PathFollow2D")
+leading = NodePath("../PathFollow2D1")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="PathFollow2D2" unique_id=61349346]
+position = Vector2(0.48217773, 0)
+scale = Vector2(2, 1)
+vertices = PackedVector2Array(-64, -64, -64, 64, 64, 64, 64, -64)
+affect_navigation_mesh = true
 
 [node name="Train" type="Sprite2D" parent="PathFollow2D2" unique_id=2004547373]
 scale = Vector2(2, 1)

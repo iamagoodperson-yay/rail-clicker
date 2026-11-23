@@ -4,7 +4,6 @@ var speed = 400.0
 var max_speed = 1000.0
 var accel = 25.0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_W) or Input.is_action_pressed('ui_up'):
 		offset.y -= speed * delta

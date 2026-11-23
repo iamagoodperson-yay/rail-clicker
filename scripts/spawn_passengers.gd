@@ -21,8 +21,11 @@ func _on_add_button_pressed() -> void:
 		spawn()
 
 func train_arrived():
+	var active: Array[bool] = []
+	for active_train in plat_node.train_passengers:
+		active.append(active_train < plat_node.train_capacity.amt)
 	for passenger in get_children():
-		passenger.board_train()
+		passenger.board_train(active)
 
 func train_departed():
 	for passenger in get_children():

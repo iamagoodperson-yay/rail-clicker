@@ -12,11 +12,13 @@ var plat_shape: RectangleShape2D
 var plat_size: Vector2
 const plat_padding = 24
 
-var trains: Array[Node]
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+var trains: Array[Node]
+var active_trains: Array[bool]
 
 func _ready():
 	add_to_group('passengers')
+	nav_agent.velocity_computed.connect(_on_velocity_computed)
 
 func start(plat_hitbox_ref, trains_ref):
 	plat_hitbox = plat_hitbox_ref
@@ -45,19 +47,22 @@ func choose_action():
 		action = randi_range(1,3)
 		await get_tree().create_timer(randf_range(1.5, 5)).timeout
 		
-func board_train():
-	if not active or boarding:
+func board_train(array: Array[bool]):
+	if not active or active_trains == array:
 		return
+	active_trains = array
 	
 	var closest_train: Node2D
 	var distance = INF
 	
-	for train in trains:
-		var dist = global_position.distance_to(train.global_position)
-		
-		if dist < distance:
-			distance = dist
-			closest_train = train
+	for i in range(active_trains.size()):
+		if active_trains[i]:
+			var train = trains[i]
+			var dist = global_position.distance_to(train.global_position)
+			
+			if dist < distance:
+				distance = dist
+				closest_train = train
 
 	boarding = true
 	nav_agent.target_position = closest_train.global_position
@@ -89,7 +94,9 @@ func _physics_process(delta: float) -> void:
 	if boarding:
 		var next_pos = nav_agent.get_next_path_position()
 		var direction = global_position.direction_to(next_pos)
-		velocity = direction * speed
+		var desired_velocity = direction * speed
+
+		nav_agent.velocity = desired_velocity
 		rotation = move_toward(rotation, direction.rotated(PI/2).angle(), delta)
 		
 	else: 
@@ -105,5 +112,10 @@ func _physics_process(delta: float) -> void:
 			_:
 				velocity = Vector2.ZERO
 		keep_to_plat_hitbox()
-		
+	
 	move_and_slide()
+
+func _on_velocity_computed(safe_velocity: Vector2):
+	if boarding:
+		velocity = safe_velocity
+		move_and_slide()

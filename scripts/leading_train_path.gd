@@ -23,7 +23,7 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if plat_node.active:
-		label.text = '%s/%s' % [plat_node.train_passengers, int(plat_node.train_capacity.amt)]
+		label.text = '%s/%s' % [plat_node.train_passengers[0], int(plat_node.train_capacity.amt)]
 		linear_progress(delta)
 		if flipped:
 			control.rotation = PI
@@ -53,15 +53,21 @@ func linear_progress(delta) -> void:
 		progress_ratio = 1.0
 		speed = 0.0
 		state = "e"
-		Event.money += plat_node.train_passengers * plat_node.fare.amt
+		for passengers in plat_node.train_passengers:
+			Event.money += passengers * plat_node.fare.amt
 		wait_at_end()
 
 
 func wait_at_stop_point():
 	plat_node.train_arrived = true
+	var capacity = plat_node.train_capacity.amt
 	var timer = get_tree().create_timer(15.0)
 	while timer.time_left > 0:
-		if plat_node.train_passengers >= plat_node.train_capacity.amt:
+		var filled = 0
+		for passengers in plat_node.train_passengers:
+			if passengers >= capacity:
+				filled += 1
+		if filled == plat_node.train_passengers.size():
 			break
 		await get_tree().process_frame
 	state = "a"
@@ -76,7 +82,8 @@ func wait_at_end():
 			break
 	if plat_node.train_wait.amt != wait:
 		wait_at_end()
-	plat_node.train_passengers = 0
+	for i in range(plat_node.train_passengers.size()):
+		plat_node.train_passengers[i] = 0
 	progress_ratio = 0.0
 	speed = max_speed
 	state = "c"

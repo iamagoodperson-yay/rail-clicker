@@ -15,6 +15,7 @@ shape = SubResource("RectangleShape2D_jyhfs")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=491004969]
 path_desired_distance = 4.0
+avoidance_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2071598969]
 scale = Vector2(0.99999994, 0.99999994)

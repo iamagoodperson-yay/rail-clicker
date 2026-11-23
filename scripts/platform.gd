@@ -18,7 +18,7 @@ var spawnrate = Event.upgradable.new()
 
 var train_arrived = false
 var passenger_count = 0
-var train_passengers = 0
+var train_passengers: Array[int]
 
 func _ready():
 	nav_region.visible = false
@@ -27,8 +27,8 @@ func _ready():
 	selected_label.visible = false
 	buy_btn_control.visible = true
 	
-	train_capacity.base_amt = 10.0
-	train_capacity.amt_inc = 2.0
+	train_capacity.base_amt = 5.0
+	train_capacity.amt_inc = 1.0
 	train_wait.base_amt = 10.0
 	train_wait.amt_inc = -2.0
 	train_wait.base_cost = 20.0
@@ -38,6 +38,9 @@ func _ready():
 	spawnrate.base_amt = 0.0
 	spawnrate.amt_inc = 0.1
 	spawnrate.base_cost = 20.0
+	
+	for _i in range(path2d.get_child_count()):
+		train_passengers.append(0)
 
 func activate(flip: bool):
 	active = true

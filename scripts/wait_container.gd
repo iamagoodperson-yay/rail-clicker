@@ -3,7 +3,6 @@ extends HFlowContainer
 @onready var top_label = $'TopContainer/Label'
 @onready var btm_label = $'BottomContainer/Label'
 @onready var button = $'BottomContainer/Button'
-@onready var error_label = get_node("/root/main/UI/ErrorLabel")
 
 var obj: Event.upgradable
 
