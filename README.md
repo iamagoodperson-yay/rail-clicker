@@ -1,5 +1,5 @@
 # Rail Clicker
-Made for HackClub Terra (Week 4)
+Made for HackClub Terra (Week 4 & 5)
 ![Screenshot of game](/game.png?raw=true "Screenshot of game")
 
 # Description
